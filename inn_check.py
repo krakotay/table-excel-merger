@@ -39,7 +39,7 @@ def check_by_inn(df: pl.DataFrame) -> pl.DataFrame:
             suggestions = dadata.suggest("party", inn + " " + ogrn)
             # print(suggestions)
             # print(suggestions.__len__() > 0)
-            value: str =suggestions[0]['value']
+            value: str =suggestions[0]['value'] if suggestions.__len__() > 0 else "ИП "
             names.append(value.removeprefix('ИП '))
     df = df.with_columns(pl.Series(name='ФИО', values=names))
     return df
